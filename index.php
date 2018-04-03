@@ -60,8 +60,27 @@ try {
 
 	// orders
 	// print_r( $client->orders->get());
-	$results=json_encode($client->orders->get(),true);
-	print_r( $results.['orders']['id']);
+	$results=json_decode(json_encode($client->orders->get()),true);
+	// echo $results;
+	// print_r($results);
+	print_r($results["orders"][0]["subtotal"]);
+	echo "<br>";
+	print_r($results["orders"][0]["status"]);
+	echo "<br>";
+	print_r($results["orders"][0]["billing_address"]["first_name"]);
+	echo "<br>";
+	// print_r($results["orders"][0]["id"]);
+	// print_r($results["orders"]);
+	echo "<br>";
+	for ($x=0; $x<=5; $x++) {
+	  echo "数字是：$x <br>";
+	}
+	// echo "<table>";
+	// foreach ($results as $key => $value) {
+	// 	echo "<tr><td>" .$value->orders. "</td><td>" .$value->subtotal. "</td></tr>";
+	// }
+	// echo "</table>";
+	// print_r( $results.['orders'].['id']);
 	//print_r( $client->orders->get( $order_id ) );
 	//print_r( $client->orders->update_status( $order_id, 'pending' ) );
 
