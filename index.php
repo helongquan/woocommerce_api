@@ -1,7 +1,19 @@
 <?php
 
 require_once( 'lib/woocommerce-api.php' );
-
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+	
+<?php
 $options = array(
 	'debug'           => true,
 	'return_as_array' => false,
@@ -12,7 +24,7 @@ $options = array(
 
 try {
 
-	$client = new WC_API_Client( 'http://test.noctiuniversity.com', 'ck_fdbcb1446e5b3fc4f6f0031d7b43a79fe160b232', 'cs_6451aeb4048eb129c07dbf0f46db616160c203d2', $options );
+	$client = new WC_API_Client( 'http://dealdig.cc', 'ck_4348e76bf4bd1313fd70357c97c08239a53ce67e', 'cs_c71a8ee482a44da383ba71bb69c7477bb71cd6b4', $options );
 
 
 	// $consumer_key = 'ck_dd74c64f9b2e38a465a60be6f439f43dca88c361'; 
@@ -55,27 +67,96 @@ try {
 	//print_r( $client->customers->update( $customer_id, (array) $customer ) );
 
 	// index
-	// print_r( $client->index->get() );
+	$rr=json_decode(json_encode($client->index->get()),true);
+	echo "<br>";
+	echo $rr["store"]["URL"];
+	echo "<br>";
+	print_r($rr["store"]["description"]);
+	echo "<br>";
+	echo "<a href='".$rr["store"]["URL"]."'>".$rr["store"]["name"]."</a>";
 	// print_r($client->orders->get());
 
 	// orders
 	// print_r( $client->orders->get());
 	$results=json_decode(json_encode($client->orders->get()),true);
+	// $results=json_encode($client->orders->get(),true);
 	// echo $results;
 	// print_r($results);
-	print_r($results["orders"][0]["subtotal"]);
-	echo "<br>";
-	print_r($results["orders"][0]["status"]);
-	echo "<br>";
-	print_r($results["orders"][0]["billing_address"]["first_name"]);
-	echo "<br>";
+	echo "<div class='container'>";
+	echo "<table class='table table-hover'>";
+	echo "<tr><th>产品名称</th><th>价格</th><th>状态</th><th>用户名</th></tr>";
+
+
+
+	// print_r($results["orders"]);
+	echo count($results);
+	// echo sizeof($results);
+	for ($x=0; $x<=count($results); $x++) {
+	  	// echo "数字是：$x <br>";
+	  	echo "<tr><td>";
+		print_r($results["orders"]["$x"]["line_items"][0]["name"]);
+		echo "</td><td>";
+		print_r($results["orders"]["$x"]["subtotal"]);
+		echo "</td><td>";
+		print_r($results["orders"]["$x"]["status"]);
+		echo "</td><td>";
+		print_r($results["orders"]["$x"]["billing_address"]["first_name"]);
+		echo "</td></tr>";
+	}
+
+
+	// echo "<tr><td>";
+	// print_r($results["orders"][0]["line_items"][0]["name"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][0]["subtotal"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][0]["status"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][0]["billing_address"]["first_name"]);
+	// echo "</td></tr>";
+
 	// print_r($results["orders"][0]["id"]);
 	// print_r($results["orders"]);
-	echo "<br>";
-	for ($x=0; $x<=5; $x++) {
-	  echo "数字是：$x <br>";
-	}
-	// echo "<table>";
+	// echo "<br>";
+
+	// echo "<tr><td>";
+	// print_r($results["orders"][1]["line_items"][0]["name"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][1]["subtotal"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][1]["status"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][1]["billing_address"]["first_name"]);
+	// echo "</td></tr>";
+
+	// echo "<br>";
+
+	// echo "<tr><td>";
+	// print_r($results["orders"][6]["line_items"][0]["name"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][6]["subtotal"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][6]["status"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][6]["billing_address"]["first_name"]);
+	// echo "</td></tr>";
+
+	// echo "<br>";
+
+	// echo "<tr><td>";
+	// print_r($results["orders"][8]["line_items"][0]["name"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][8]["subtotal"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][8]["status"]);
+	// echo "</td><td>";
+	// print_r($results["orders"][8]["billing_address"]["first_name"]);
+	// echo "</td></tr></table>";
+
+
+	echo "</div>";
+
+
 	// foreach ($results as $key => $value) {
 	// 	echo "<tr><td>" .$value->orders. "</td><td>" .$value->subtotal. "</td></tr>";
 	// }
@@ -138,3 +219,8 @@ try {
 		print_r( $e->get_response() );
 	}
 }
+
+?>
+
+</body>
+</html>
