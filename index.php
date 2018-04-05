@@ -6,6 +6,7 @@ require_once( 'lib/woocommerce-api.php' );
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 	<title>Document</title>
 	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
@@ -67,13 +68,7 @@ try {
 	//print_r( $client->customers->update( $customer_id, (array) $customer ) );
 
 	// index
-	$rr=json_decode(json_encode($client->index->get()),true);
-	echo "<br>";
-	echo $rr["store"]["URL"];
-	echo "<br>";
-	print_r($rr["store"]["description"]);
-	echo "<br>";
-	echo "<a href='".$rr["store"]["URL"]."'>".$rr["store"]["name"]."</a>";
+	// print_r($client->index->get());
 	// print_r($client->orders->get());
 
 	// orders
@@ -83,6 +78,16 @@ try {
 	// echo $results;
 	// print_r($results);
 	echo "<div class='container'>";
+
+	$rr=json_decode(json_encode($client->index->get()),true);
+	echo "<br>";
+	echo $rr["store"]["URL"];
+	echo "<br>";
+	print_r($rr["store"]["description"]);
+	echo "<br>";
+	echo "<a href='".$rr["store"]["URL"]."'>".$rr["store"]["name"]."</a>";
+
+
 	echo "<table class='table table-hover'>";
 	echo "<tr><th>产品名称</th><th>价格</th><th>状态</th><th>用户名</th></tr>";
 
